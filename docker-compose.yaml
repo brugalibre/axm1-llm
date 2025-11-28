@@ -1,0 +1,41 @@
+---
+services:
+  tokenizer-service:
+    build:
+      context: .
+      dockerfile: ./tokenizer-service/Dockerfile
+    container_name: tokenizer-service
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - ./models:/app/models:ro
+    environment:
+      - TZ=Europe/Zurich
+    network_mode: host
+
+  llm-service:
+    build:
+       context: .
+       dockerfile: ./llm-service/Dockerfile
+    container_name: llm-service
+    privileged: true
+    restart: unless-stopped
+    devices:
+      - /dev/axcl_host:/dev/axcl_host
+      - /dev/ax_mmb_dev:/dev/ax_mmb_dev
+      - /dev/mem:/dev/mem
+      - /dev/dri:/dev/dri
+      - /dev/ion:/dev/ion
+    shm_size: "2048mb"
+    environment:
+      - LD_LIBRARY_PATH=/usr/lib/axcl:$LD_LIBRARY_PATH
+      - TZ=Europe/Zurich
+    volumes:
+      - /usr/lib/ld-linux-aarch64.so.1:/usr/lib/ld-linux-aarch64.so.1
+      - /usr/lib/axcl:/usr/lib/axcl:ro
+      - /usr/bin/axcl:/usr/bin/axcl:ro
+      - ./models:/app/models:ro
+      - ../../node-exporter/textfile/textfile_collector:/app/metrics
+    depends_on:
+      - tokenizer-service
+    network_mode: host

@@ -2,6 +2,14 @@
 __pycache__/
 *.py[codz]
 *$py.class
+# Intellij
+.idea
+axm1-llm.iml
+
+tokenizer/tokenizers/
+models/dsr1-q1.5b-gptq-i4/
+models/dsr1-q7b-gptq-i4/
+models/model-descriptors.json
 
 # C extensions
 *.so
