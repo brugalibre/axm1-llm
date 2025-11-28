@@ -1,0 +1,12 @@
+[
+  {
+    "model_name":"dummy-model",
+    "run_cmd":"./dummy-model-run.sh",
+    "model_path":"/app/models/dummy-model",
+    "include_thinking":"false",
+    "run_on_startup":"true",
+    "tokenizer_path":"/app/models/dummy-model",
+    "tokenizer_py":"dummy-tokenizer.py",
+    "tokenizer_port":"1234"
+  }
+]
