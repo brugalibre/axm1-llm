@@ -8,6 +8,11 @@
     "tokenizer_path":"/app/models/dummy-model",
     "tokenizer_ip": "192.168.0.132",
     "tokenizer_py":"dummy-tokenizer.py",
-    "tokenizer_port":"1234"
+    "tokenizer_port":"1234",
+    "details": {
+      "format": "gguf",
+      "family": "dummy",
+      "parameter_size": "7B"
+    }
   }
 ]

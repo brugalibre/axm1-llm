@@ -58,6 +58,9 @@ class ModelHelper():
                 llm_service.start_model()
                 llm_service.await_readiness()
 
+    def get_model_descriptors(self):
+        return list(self.model_descriptors)
+
     def get_llmservice(self, model_name: str) -> LlmService:
         if model_name in self.name_to_llm_services:
             return self.name_to_llm_services[model_name]

@@ -22,6 +22,11 @@ logger.setLevel(logging.DEBUG)
 class LlmGenerateRequest(BaseModel):
     model: str
     prompt: str
+    images: list[str] | None = None
+    options: dict | None = None
+
+class ShowRequest(BaseModel):
+    name: str
 
 
 @app.post("/api/generate")
@@ -67,3 +72,23 @@ def status(model_name):
         }
     except Exception as e:
         raise HTTPException(500, str(e))
+
+
+@app.get("/api/tags")
+async def list_models():
+    """
+    Mimics: GET /api/tags
+    """
+    return {"models": model_helper.get_model_descriptors()}
+
+
+@app.post("/api/show")
+async def show_model(req: ShowRequest):
+    """
+    Mimics: POST /api/show
+    Used by Frigate to check if model exists
+    """
+    if req.name not in model_helper.get_model_descriptors():
+        return {"error": f"model '{req.name}' not found"}
+
+    return "ok"
