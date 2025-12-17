@@ -1,0 +1,23 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the tokenizer-service Docker image
+      run: docker build . --file tokenizer-service/Dockerfile --tag axm1-tokenizer-service:latest
+
+    - uses: actions/checkout@v4
+    - name: Build the llm-service Docker image
+      run: docker build . --file llm-service/Dockerfile --tag axm1-llm-service:latest
+
