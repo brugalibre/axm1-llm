@@ -25,10 +25,6 @@ COPY models/modelhelper.py .
 # Prepare runtime directories
 RUN mkdir -p /usr/lib/axcl
 
-
-# Update library path to include your Radxa runtime
-ENV LD_LIBRARY_PATH="/usr/lib/axcl:${LD_LIBRARY_PATH}"
-
 EXPOSE 11535
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "11535"]
